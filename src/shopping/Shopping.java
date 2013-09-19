@@ -5,16 +5,16 @@ import java.util.ArrayList;
 public class Shopping {
 
 	// Create a new ArrayList called item which contains objects
-	private ArrayList<Item> item = new ArrayList<Item>();
+	private ArrayList<Item> items = new ArrayList<Item>();
 
 	// Add Item object i to the ArrayList
-	public void addItem(Item i) {
-		item.add(i);
+	public void addItem(Item item) {
+		items.add(item);
 	}
 
 	// Remove Item object i from the ArrayList
-	public void removeItem(Item i) {
-		item.remove(i);
+	public void removeItem(Item item) {
+		items.remove(item);
 	}
 
 	/*
@@ -22,10 +22,10 @@ public class Shopping {
 	 * Display details
 	 */
 	public void viewAll() {
-		for (int i = 0; i < item.size(); i++) {
-			Item items = item.get(i);
-			System.out.println("Name: " + items.getName());
-			System.out.println("Price: £" + items.getPrice());
+		for (int i = 0; i < items.size(); i++) {
+			Item item = items.get(i);
+			System.out.println("Name: " + item.getName());
+			System.out.println("Price: £" + item.getPrice());
 			System.out.println();
 		}
 	}
@@ -37,9 +37,9 @@ public class Shopping {
 	public double total() {
 		double cost = 0.0;
 
-		for (int i = 0; i < item.size(); i++) {
-			Item items = item.get(i);
-			cost = cost + items.getPrice();
+		for (int i = 0; i < items.size(); i++) {
+			Item item = items.get(i);
+			cost = cost + item.getPrice();
 		}
 
 		return cost;
@@ -50,9 +50,9 @@ public class Shopping {
 	 * message.
 	 */
 	public void order() {
-		if (!item.isEmpty()) {
+		if (!items.isEmpty()) {
 			System.out.println("Items have been ordered.");
-			item.clear();
+			items.clear();
 		} else {
 			System.out.println("Basket is empty.");
 		}

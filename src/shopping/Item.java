@@ -7,9 +7,9 @@ public class Item {
 	private double price = 0.00;
 	private static final DecimalFormat DF = new DecimalFormat("0.00");
 
-	public Item(String n, double p) {
-		setName(n);
-		setPrice(p);
+	public Item(String name, double price) {
+		this.name = name;
+		this.price = price;
 	}
 
 	public String getName() {

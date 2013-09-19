@@ -34,6 +34,7 @@ public class Gui extends JFrame implements ActionListener, ChangeListener {
 
 	private static final long serialVersionUID = 1L;
 
+	// Objects
 	private House house = new House();
 	private Shopping shopping = new Shopping();
 	private List<Door> doors = house.getDoor();
@@ -56,44 +57,66 @@ public class Gui extends JFrame implements ActionListener, ChangeListener {
 	private final JPanel LIGHTPANEL = new JPanel(null);
 	private final JPanel SHOPPINGPANEL = new JPanel(null);
 
-	// Door
+	// Labels
 	private JLabel LBL_DOOR_NAME[] = new JLabel[doors.size()];
 	private JLabel LBL_DOORSTATUS[] = new JLabel[doors.size()];
+	
+	private JLabel LBL_GARAGE_NAME[] = new JLabel[garages.size()];
+	private JLabel LBL_GARAGESTATUS[] = new JLabel[garages.size()];
+	
+	private JLabel LBL_LIGHT[] = new JLabel[lights.size()];
+	private JLabel LBL_DIMSETTINGS[] = new JLabel[lights.size()];
+	private JLabel LBL_LIGHTSTATUS[] = new JLabel[lights.size()];
+	
+	private JLabel MASTER_LBL_DOOR[] = new JLabel[doors.size()];
+	private JLabel MASTER_LBL_GARAGE_DOOR[] = new JLabel[garages.size()];
+	private JLabel MASTER_LBL_LIGHT[] = new JLabel[lights.size()];
+	
+	private JLabel LBL_COST;
+
+	// JButtons
 	private JButton BTN_OPEN[] = new JButton[doors.size()];
 	private JButton BTN_CLOSE[] = new JButton[doors.size()];
+	
+	private JButton BTN_GARAGE_LOCK[] = new JButton[garages.size()];
+	private JButton BTN_GARAGE_UNLOCK[] = new JButton[garages.size()];
+	
+	private JButton BTN_TIMERON[] = new JButton[lights.size()];
+	private JButton BTN_TIMEROFF[] = new JButton[lights.size()];
+	
+	private JButton MASTER_BTN_OPEN;
+	private JButton MASTER_BTN_CLOSE;
+	private JButton MASTER_BTN_LOCK;
+	private JButton MASTER_BTN_UNLOCK;
+	private JButton MASTER_BTN_ON; 
+	private JButton MASTER_BTN_OFF; 
+	private JButton MASTER_BTN_TIMERON; 
+	private JButton MASTER_BTN_TIMEROFF;
+	
+	private JButton BTN_ADD;
+	private JButton BTN_VIEWLIST;
+	private JButton BTN_DELETE;
+	private JButton BTN_ORDER;
+	
 	private JRadioButton RB_LOCK[] = new JRadioButton[doors.size()],
 			RB_UNLOCK[] = new JRadioButton[doors.size()];
 
-	// Garage
-	private JLabel LBL_GARAGE_NAME[] = new JLabel[garages.size()],
-			LBL_GARAGESTATUS[] = new JLabel[garages.size()];
-	private JButton BTN_GARAGE_LOCK[] = new JButton[garages.size()],
-			BTN_GARAGE_UNLOCK[] = new JButton[garages.size()];
-
-	// Light
-	private JLabel LBL_LIGHT[] = new JLabel[lights.size()],
-			LBL_DIMSETTINGS[] = new JLabel[lights.size()],
-			LBL_LIGHTSTATUS[] = new JLabel[lights.size()];
 	private JRadioButton RB_ON[] = new JRadioButton[lights.size()],
 			RB_OFF[] = new JRadioButton[lights.size()];
 	private JSlider S_DIM[] = new JSlider[lights.size()];
-	private JButton BTN_TIMERON[] = new JButton[lights.size()],
-			BTN_TIMEROFF[] = new JButton[lights.size()];
+	
 
 	// Shopping
-	private JButton BTN_ADD, BTN_VIEWLIST, BTN_DELETE, BTN_ORDER;
+	
 	private JTextField JTF_PRODUCT, JTF_PRICE;
 	private ImageIcon ICON_PRICE;
-	private JLabel LBL_COST;
+	
 	private DefaultListModel<Item> items = new DefaultListModel<Item>();
 	private JList<Item> itemList = new JList<Item>(items);
 
 	// Master
-	private JLabel M_LBL_DOOR[] = new JLabel[doors.size()],
-			M_LBL_GARAGE_DOOR[] = new JLabel[garages.size()],
-			M_LBL_LIGHT[] = new JLabel[lights.size()];
-	private JButton M_BTN_OPEN, M_BTN_CLOSE, M_BTN_LOCK, M_BTN_UNLOCK,
-			M_BTN_ON, M_BTN_OFF, M_BTN_TIMERON, M_BTN_TIMEROFF;
+
+	
 	private JSlider M_DIMSLIDER;
 
 	public Gui() {
@@ -286,9 +309,10 @@ public class Gui extends JFrame implements ActionListener, ChangeListener {
 
 		for (int i = 0; i < doors.size(); i++) {
 			Door door = doors.get(i);
-			M_LBL_DOOR[i] = new JLabel(door.toString() + " " + door.status());
-			M_LBL_DOOR[i].setBounds(x, y, 110, 15);
-			M_LBL_DOOR[i].setFont(F);
+			MASTER_LBL_DOOR[i] = new JLabel(door.toString() + " "
+					+ door.status());
+			MASTER_LBL_DOOR[i].setBounds(x, y, 110, 15);
+			MASTER_LBL_DOOR[i].setFont(F);
 			x += 160;
 
 			// 2 Column Layout
@@ -297,15 +321,15 @@ public class Gui extends JFrame implements ActionListener, ChangeListener {
 				y += 20;
 			}
 
-			MASTERPANEL.add(M_LBL_DOOR[i]);
+			MASTERPANEL.add(MASTER_LBL_DOOR[i]);
 		}
 
 		for (int i = 0; i < garages.size(); i++) {
 			Garage garage = garages.get(i);
-			M_LBL_GARAGE_DOOR[i] = new JLabel(garage.toString() + " "
+			MASTER_LBL_GARAGE_DOOR[i] = new JLabel(garage.toString() + " "
 					+ garage.status());
-			M_LBL_GARAGE_DOOR[i].setBounds(75, y, 110, 15);
-			M_LBL_GARAGE_DOOR[i].setFont(F);
+			MASTER_LBL_GARAGE_DOOR[i].setBounds(75, y, 110, 15);
+			MASTER_LBL_GARAGE_DOOR[i].setFont(F);
 			x += 160;
 
 			// 2 Column Layout
@@ -314,48 +338,48 @@ public class Gui extends JFrame implements ActionListener, ChangeListener {
 				y += 20;
 			}
 
-			MASTERPANEL.add(M_LBL_GARAGE_DOOR[i]);
+			MASTERPANEL.add(MASTER_LBL_GARAGE_DOOR[i]);
 		}
 
 		ImageIcon ICON_OPEN = createImageIcon("images/Icon_Open.png");
-		M_BTN_OPEN = new JButton("Open", ICON_OPEN);
-		M_BTN_OPEN.setBounds(75, 25, 100, 30);
-		M_BTN_OPEN.setFont(F);
-		M_BTN_OPEN.addActionListener(this);
+		MASTER_BTN_OPEN = new JButton("Open", ICON_OPEN);
+		MASTER_BTN_OPEN.setBounds(75, 25, 100, 30);
+		MASTER_BTN_OPEN.setFont(F);
+		MASTER_BTN_OPEN.addActionListener(this);
 
 		ImageIcon ICON_CLOSE = createImageIcon("images/Icon_Closed.png");
-		M_BTN_CLOSE = new JButton("Close", ICON_CLOSE);
-		M_BTN_CLOSE.setBounds(185, 25, 100, 30);
-		M_BTN_CLOSE.setFont(F);
-		M_BTN_CLOSE.addActionListener(this);
+		MASTER_BTN_CLOSE = new JButton("Close", ICON_CLOSE);
+		MASTER_BTN_CLOSE.setBounds(185, 25, 100, 30);
+		MASTER_BTN_CLOSE.setFont(F);
+		MASTER_BTN_CLOSE.addActionListener(this);
 
 		ImageIcon ICON_LOCKED = createImageIcon("images/Icon_Locked.png");
-		M_BTN_LOCK = new JButton("Lock", ICON_LOCKED);
-		M_BTN_LOCK.setBounds(295, 25, 100, 30);
-		M_BTN_LOCK.setFont(F);
-		M_BTN_LOCK.addActionListener(this);
+		MASTER_BTN_LOCK = new JButton("Lock", ICON_LOCKED);
+		MASTER_BTN_LOCK.setBounds(295, 25, 100, 30);
+		MASTER_BTN_LOCK.setFont(F);
+		MASTER_BTN_LOCK.addActionListener(this);
 
 		ImageIcon ICON_UNLOCKED = createImageIcon("images/Icon_Unlocked.png");
-		M_BTN_UNLOCK = new JButton("Unlock", ICON_UNLOCKED);
-		M_BTN_UNLOCK.setBounds(405, 25, 100, 30);
-		M_BTN_UNLOCK.setFont(F);
-		M_BTN_UNLOCK.addActionListener(this);
+		MASTER_BTN_UNLOCK = new JButton("Unlock", ICON_UNLOCKED);
+		MASTER_BTN_UNLOCK.setBounds(405, 25, 100, 30);
+		MASTER_BTN_UNLOCK.setFont(F);
+		MASTER_BTN_UNLOCK.addActionListener(this);
 
 		/*
 		 * LIGHTS
 		 */
 
 		ImageIcon ICON_ON = createImageIcon("images/Icon_On.png");
-		M_BTN_ON = new JButton("On", ICON_ON);
-		M_BTN_ON.setBounds(75, 150, 100, 30);
-		M_BTN_ON.setFont(F);
-		M_BTN_ON.addActionListener(this);
+		MASTER_BTN_ON = new JButton("On", ICON_ON);
+		MASTER_BTN_ON.setBounds(75, 150, 100, 30);
+		MASTER_BTN_ON.setFont(F);
+		MASTER_BTN_ON.addActionListener(this);
 
 		ImageIcon ICON_OFF = createImageIcon("images/Icon_Off.png");
-		M_BTN_OFF = new JButton("Off", ICON_OFF);
-		M_BTN_OFF.setBounds(185, 150, 100, 30);
-		M_BTN_OFF.setFont(F);
-		M_BTN_OFF.addActionListener(this);
+		MASTER_BTN_OFF = new JButton("Off", ICON_OFF);
+		MASTER_BTN_OFF.setBounds(185, 150, 100, 30);
+		MASTER_BTN_OFF.setFont(F);
+		MASTER_BTN_OFF.addActionListener(this);
 
 		M_DIMSLIDER = new JSlider();
 		M_DIMSLIDER.setBounds(295, 150, 200, 40);
@@ -377,9 +401,10 @@ public class Gui extends JFrame implements ActionListener, ChangeListener {
 
 		for (int i = 0; i < lights.size(); i++) {
 			Light light = lights.get(i);
-			M_LBL_LIGHT[i] = new JLabel(light.toString() + " " + light.status());
-			M_LBL_LIGHT[i].setBounds(x, y, 110, 15);
-			M_LBL_LIGHT[i].setFont(F);
+			MASTER_LBL_LIGHT[i] = new JLabel(light.toString() + " "
+					+ light.status());
+			MASTER_LBL_LIGHT[i].setBounds(x, y, 110, 15);
+			MASTER_LBL_LIGHT[i].setFont(F);
 			x += 110;
 
 			// 2 Column Layout
@@ -388,28 +413,28 @@ public class Gui extends JFrame implements ActionListener, ChangeListener {
 				y += 20;
 			}
 
-			MASTERPANEL.add(M_LBL_LIGHT[i]);
+			MASTERPANEL.add(MASTER_LBL_LIGHT[i]);
 		}
 
-		M_BTN_TIMERON = new JButton("Timer On", ICON_TIMED);
-		M_BTN_TIMERON.setBounds(75, y + 20, 110, 30);
-		M_BTN_TIMERON.setFont(F);
-		M_BTN_TIMERON.addActionListener(this);
+		MASTER_BTN_TIMERON = new JButton("Timer On", ICON_TIMED);
+		MASTER_BTN_TIMERON.setBounds(75, y + 20, 110, 30);
+		MASTER_BTN_TIMERON.setFont(F);
+		MASTER_BTN_TIMERON.addActionListener(this);
 
-		M_BTN_TIMEROFF = new JButton("Timer Off", ICON_TIMED);
-		M_BTN_TIMEROFF.setBounds(195, y + 20, 110, 30);
-		M_BTN_TIMEROFF.setFont(F);
-		M_BTN_TIMEROFF.addActionListener(this);
+		MASTER_BTN_TIMEROFF = new JButton("Timer Off", ICON_TIMED);
+		MASTER_BTN_TIMEROFF.setBounds(195, y + 20, 110, 30);
+		MASTER_BTN_TIMEROFF.setFont(F);
+		MASTER_BTN_TIMEROFF.addActionListener(this);
 
-		MASTERPANEL.add(M_BTN_OPEN);
-		MASTERPANEL.add(M_BTN_CLOSE);
-		MASTERPANEL.add(M_BTN_LOCK);
-		MASTERPANEL.add(M_BTN_UNLOCK);
-		MASTERPANEL.add(M_BTN_ON);
-		MASTERPANEL.add(M_BTN_OFF);
+		MASTERPANEL.add(MASTER_BTN_OPEN);
+		MASTERPANEL.add(MASTER_BTN_CLOSE);
+		MASTERPANEL.add(MASTER_BTN_LOCK);
+		MASTERPANEL.add(MASTER_BTN_UNLOCK);
+		MASTERPANEL.add(MASTER_BTN_ON);
+		MASTERPANEL.add(MASTER_BTN_OFF);
 		MASTERPANEL.add(M_DIMSLIDER);
-		MASTERPANEL.add(M_BTN_TIMERON);
-		MASTERPANEL.add(M_BTN_TIMEROFF);
+		MASTERPANEL.add(MASTER_BTN_TIMERON);
+		MASTERPANEL.add(MASTER_BTN_TIMEROFF);
 
 	}
 
@@ -501,8 +526,8 @@ public class Gui extends JFrame implements ActionListener, ChangeListener {
 				} else {
 					door.open();
 					LBL_DOORSTATUS[i].setText("Status: " + door.status());
-					M_LBL_DOOR[i]
-							.setText(door.toString() + " " + door.status());
+					MASTER_LBL_DOOR[i].setText(door.toString() + " "
+							+ door.status());
 				}
 			}
 
@@ -515,8 +540,8 @@ public class Gui extends JFrame implements ActionListener, ChangeListener {
 				} else {
 					door.close();
 					LBL_DOORSTATUS[i].setText("Status: " + door.status());
-					M_LBL_DOOR[i]
-							.setText(door.toString() + " " + door.status());
+					MASTER_LBL_DOOR[i].setText(door.toString() + " "
+							+ door.status());
 				}
 			}
 
@@ -539,8 +564,8 @@ public class Gui extends JFrame implements ActionListener, ChangeListener {
 					RB_LOCK[i].setSelected(true);
 					RB_UNLOCK[i].setSelected(false);
 					LBL_DOORSTATUS[i].setText("Status: " + door.status());
-					M_LBL_DOOR[i]
-							.setText(door.toString() + " " + door.status());
+					MASTER_LBL_DOOR[i].setText(door.toString() + " "
+							+ door.status());
 				}
 			}
 
@@ -557,8 +582,8 @@ public class Gui extends JFrame implements ActionListener, ChangeListener {
 					RB_LOCK[i].setSelected(false);
 					RB_UNLOCK[i].setSelected(true);
 					LBL_DOORSTATUS[i].setText("Status: " + door.status());
-					M_LBL_DOOR[i]
-							.setText(door.toString() + " " + door.status());
+					MASTER_LBL_DOOR[i].setText(door.toString() + " "
+							+ door.status());
 				}
 			}
 
@@ -567,66 +592,66 @@ public class Gui extends JFrame implements ActionListener, ChangeListener {
 			 */
 
 			// Open Button
-			if (e.getSource() == M_BTN_OPEN) {
+			if (e.getSource() == MASTER_BTN_OPEN) {
 				if (door.isLocked()) {
 					door.unlock();
 					door.open();
 					RB_LOCK[i].setSelected(false);
 					RB_UNLOCK[i].setSelected(true);
-					M_LBL_DOOR[i]
-							.setText(door.toString() + " " + door.status());
+					MASTER_LBL_DOOR[i].setText(door.toString() + " "
+							+ door.status());
 					LBL_DOORSTATUS[i].setText("Status: " + door.status());
 				} else {
 					door.open();
 					RB_LOCK[i].setSelected(false);
 					RB_UNLOCK[i].setSelected(true);
-					M_LBL_DOOR[i]
-							.setText(door.toString() + " " + door.status());
+					MASTER_LBL_DOOR[i].setText(door.toString() + " "
+							+ door.status());
 					LBL_DOORSTATUS[i].setText("Status: " + door.status());
 				}
 			}
 
 			// Close Button
-			if (e.getSource() == M_BTN_CLOSE) {
+			if (e.getSource() == MASTER_BTN_CLOSE) {
 				if (door.isOpen()) {
 					door.close();
 					RB_LOCK[i].setSelected(false);
 					RB_UNLOCK[i].setSelected(true);
 					LBL_DOORSTATUS[i].setText("Status: " + door.status());
-					M_LBL_DOOR[i]
-							.setText(door.toString() + " " + door.status());
+					MASTER_LBL_DOOR[i].setText(door.toString() + " "
+							+ door.status());
 				}
 			}
 
 			// Lock Radio Button
-			if (e.getSource() == M_BTN_LOCK) {
+			if (e.getSource() == MASTER_BTN_LOCK) {
 				if (door.isOpen()) {
 					door.close();
 					door.lock();
 					RB_LOCK[i].setSelected(true);
 					RB_UNLOCK[i].setSelected(false);
 					LBL_DOORSTATUS[i].setText("Status: " + door.status());
-					M_LBL_DOOR[i]
-							.setText(door.toString() + " " + door.status());
+					MASTER_LBL_DOOR[i].setText(door.toString() + " "
+							+ door.status());
 				} else {
 					door.lock();
 					RB_LOCK[i].setSelected(true);
 					RB_UNLOCK[i].setSelected(false);
 					LBL_DOORSTATUS[i].setText("Status: " + door.status());
-					M_LBL_DOOR[i]
-							.setText(door.toString() + " " + door.status());
+					MASTER_LBL_DOOR[i].setText(door.toString() + " "
+							+ door.status());
 				}
 			}
 
 			// Unlock Radio Button
-			if (e.getSource() == M_BTN_UNLOCK) {
+			if (e.getSource() == MASTER_BTN_UNLOCK) {
 				if (door.isLocked()) {
 					door.unlock();
 					RB_LOCK[i].setSelected(false);
 					RB_UNLOCK[i].setSelected(true);
 					LBL_DOORSTATUS[i].setText("Status: " + door.status());
-					M_LBL_DOOR[i]
-							.setText(door.toString() + " " + door.status());
+					MASTER_LBL_DOOR[i].setText(door.toString() + " "
+							+ door.status());
 				}
 			}
 		}
@@ -640,7 +665,8 @@ public class Gui extends JFrame implements ActionListener, ChangeListener {
 				if (garage.isLocked()) {
 					garage.unlock();
 					LBL_GARAGESTATUS[i].setText("Status: " + garage.status());
-					M_LBL_GARAGE_DOOR[i].setText("Status: " + garage.status());
+					MASTER_LBL_GARAGE_DOOR[i].setText("Status: "
+							+ garage.status());
 				} else {
 					JOptionPane.showMessageDialog(null,
 							"Garage already opened!", "Garage open.", 2);
@@ -652,7 +678,8 @@ public class Gui extends JFrame implements ActionListener, ChangeListener {
 				if (!garage.isLocked()) {
 					garage.lock();
 					LBL_GARAGESTATUS[i].setText("Status: " + garage.status());
-					M_LBL_GARAGE_DOOR[i].setText("Status: " + garage.status());
+					MASTER_LBL_GARAGE_DOOR[i].setText("Status: "
+							+ garage.status());
 				} else {
 					JOptionPane.showMessageDialog(null,
 							"Garage already locked!", "Garage locked.", 2);
@@ -664,18 +691,18 @@ public class Gui extends JFrame implements ActionListener, ChangeListener {
 			 */
 
 			// Garage Unlock
-			if (e.getSource() == M_BTN_OPEN) {
+			if (e.getSource() == MASTER_BTN_OPEN) {
 				garage.unlock();
 				LBL_GARAGESTATUS[i].setText("Status: " + garage.status());
-				M_LBL_GARAGE_DOOR[i].setText(garage.toString() + " "
+				MASTER_LBL_GARAGE_DOOR[i].setText(garage.toString() + " "
 						+ garage.status());
 			}
 
 			// Garage Lock
-			if (e.getSource() == M_BTN_CLOSE) {
+			if (e.getSource() == MASTER_BTN_CLOSE) {
 				garage.lock();
 				LBL_GARAGESTATUS[i].setText("Status: " + garage.status());
-				M_LBL_GARAGE_DOOR[i].setText(garage.toString() + " "
+				MASTER_LBL_GARAGE_DOOR[i].setText(garage.toString() + " "
 						+ garage.status());
 			}
 		}
@@ -690,7 +717,7 @@ public class Gui extends JFrame implements ActionListener, ChangeListener {
 					RB_ON[i].setSelected(true);
 					RB_OFF[i].setSelected(false);
 					LBL_LIGHTSTATUS[i].setText("Status: " + light.status());
-					M_LBL_LIGHT[i].setText(light.toString() + " "
+					MASTER_LBL_LIGHT[i].setText(light.toString() + " "
 							+ light.status());
 				}
 			}
@@ -701,7 +728,7 @@ public class Gui extends JFrame implements ActionListener, ChangeListener {
 					RB_ON[i].setSelected(false);
 					RB_OFF[i].setSelected(true);
 					LBL_LIGHTSTATUS[i].setText("Status: " + light.status());
-					M_LBL_LIGHT[i].setText(light.toString() + " "
+					MASTER_LBL_LIGHT[i].setText(light.toString() + " "
 							+ light.status());
 				}
 			}
@@ -717,7 +744,8 @@ public class Gui extends JFrame implements ActionListener, ChangeListener {
 				RB_ON[i].setSelected(true);
 				RB_OFF[i].setSelected(false);
 				LBL_LIGHTSTATUS[i].setText("Status: " + light.status());
-				M_LBL_LIGHT[i].setText(light.toString() + " " + light.status());
+				MASTER_LBL_LIGHT[i].setText(light.toString() + " "
+						+ light.status());
 			}
 
 			if (e.getSource() == BTN_TIMEROFF[i]) {
@@ -731,37 +759,40 @@ public class Gui extends JFrame implements ActionListener, ChangeListener {
 				RB_ON[i].setSelected(false);
 				RB_OFF[i].setSelected(true);
 				LBL_LIGHTSTATUS[i].setText("Status: " + light.status());
-				M_LBL_LIGHT[i].setText(light.toString() + " " + light.status());
+				MASTER_LBL_LIGHT[i].setText(light.toString() + " "
+						+ light.status());
 			}
 
 			/*
 			 * MASTER CONTROL FOR LIGHT
 			 */
 
-			if (e.getSource() == M_BTN_ON) {
+			if (e.getSource() == MASTER_BTN_ON) {
 				light.turnOn();
 				RB_ON[i].setSelected(true);
 				RB_OFF[i].setSelected(false);
 				LBL_LIGHTSTATUS[i].setText(light.toString() + " "
 						+ light.status());
-				M_LBL_LIGHT[i].setText(light.toString() + " " + light.status());
+				MASTER_LBL_LIGHT[i].setText(light.toString() + " "
+						+ light.status());
 			}
 
-			if (e.getSource() == M_BTN_OFF) {
+			if (e.getSource() == MASTER_BTN_OFF) {
 				light.turnOff();
 				RB_ON[i].setSelected(false);
 				RB_OFF[i].setSelected(true);
 				LBL_LIGHTSTATUS[i].setText(light.toString() + " "
 						+ light.status());
-				M_LBL_LIGHT[i].setText(light.toString() + " " + light.status());
+				MASTER_LBL_LIGHT[i].setText(light.toString() + " "
+						+ light.status());
 			}
 
-			if (e.getSource() == M_BTN_TIMERON) {
+			if (e.getSource() == MASTER_BTN_TIMERON) {
 				timerOn[i] = new Timer(1000, this);
 				timerOn[i].start();
 			}
 
-			if (e.getSource() == M_BTN_TIMEROFF) {
+			if (e.getSource() == MASTER_BTN_TIMEROFF) {
 				timerOff[i] = new Timer(1000, this);
 				timerOff[i].start();
 			}
