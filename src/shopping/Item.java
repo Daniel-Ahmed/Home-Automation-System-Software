@@ -5,7 +5,7 @@ public class Item {
 
 	private String name;
 	private double price = 0.00;
-	private static final DecimalFormat df = new DecimalFormat("0.00");
+	private static final DecimalFormat DF = new DecimalFormat("0.00");
 
 	public Item(String n, double p) {
 		setName(n);
@@ -29,6 +29,6 @@ public class Item {
 	}
 
 	public String toString() {
-		return name + "   £" + df.format(price);
+		return name + "   £" + DF.format(price);
 	}
 }

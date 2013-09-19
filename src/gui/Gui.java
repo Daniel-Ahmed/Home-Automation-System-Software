@@ -30,55 +30,55 @@ import javax.swing.event.ChangeListener;
 import shopping.Item;
 import shopping.Shopping;
 
-/**
- * TODO Alarm System
- */
 public class Gui extends JFrame implements ActionListener, ChangeListener {
 
 	private static final long serialVersionUID = 1L;
 
 	private House house = new House();
 	private Shopping shopping = new Shopping();
-	private List<Door> d = house.getDoor();
-	private List<Garage> g = house.getGarage();
-	private List<Light> l = house.getLight();
+	private List<Door> doors = house.getDoor();
+	private List<Garage> garages = house.getGarage();
+	private List<Light> lights = house.getLight();
 
 	// Timer
-	private Timer timerOn[] = new Timer[l.size()], timerOff[] = new Timer[l
-			.size()];
+	private Timer timerOn[] = new Timer[lights.size()];
+	private Timer timerOff[] = new Timer[lights.size()];
 
-	// UI Looks and Design
-	private DecimalFormat DF = new DecimalFormat("0.00");
-	private Font f = new Font("Arial", Font.PLAIN, 12);
-	private ImageIcon ICON_TIMED = createImageIcon("images/Icon_Timed.png");
+	// Icons, fonts and number format.
+	private final DecimalFormat DF = new DecimalFormat("0.00");
+	private final Font F = new Font("Arial", Font.PLAIN, 12);
+	private final ImageIcon ICON_TIMED = createImageIcon("images/Icon_Timed.png");
 
-	// Components;
-	private JTabbedPane TABPANE;
-	private JPanel MASTERPANEL, DOORPANEL, LIGHTPANEL, SHOPPINGPANEL;
+	// Panels and Tabbed Pane
+	private final JTabbedPane TABPANE = new JTabbedPane();
+	private final JPanel MASTERPANEL = new JPanel(null);
+	private final JPanel DOORPANEL = new JPanel(null);
+	private final JPanel LIGHTPANEL = new JPanel(null);
+	private final JPanel SHOPPINGPANEL = new JPanel(null);
 
 	// Door
-	private JLabel LBL_DOOR_NAME[] = new JLabel[d.size()],
-			LBL_DOORSTATUS[] = new JLabel[d.size()];
-	private JButton BTN_OPEN[] = new JButton[d.size()],
-			BTN_CLOSE[] = new JButton[d.size()];
-	private JRadioButton RB_LOCK[] = new JRadioButton[d.size()],
-			RB_UNLOCK[] = new JRadioButton[d.size()];
+	private JLabel LBL_DOOR_NAME[] = new JLabel[doors.size()];
+	private JLabel LBL_DOORSTATUS[] = new JLabel[doors.size()];
+	private JButton BTN_OPEN[] = new JButton[doors.size()];
+	private JButton BTN_CLOSE[] = new JButton[doors.size()];
+	private JRadioButton RB_LOCK[] = new JRadioButton[doors.size()],
+			RB_UNLOCK[] = new JRadioButton[doors.size()];
 
 	// Garage
-	private JLabel LBL_GARAGE_NAME[] = new JLabel[g.size()],
-			LBL_GARAGESTATUS[] = new JLabel[g.size()];
-	private JButton BTN_GARAGE_LOCK[] = new JButton[g.size()],
-			BTN_GARAGE_UNLOCK[] = new JButton[g.size()];
+	private JLabel LBL_GARAGE_NAME[] = new JLabel[garages.size()],
+			LBL_GARAGESTATUS[] = new JLabel[garages.size()];
+	private JButton BTN_GARAGE_LOCK[] = new JButton[garages.size()],
+			BTN_GARAGE_UNLOCK[] = new JButton[garages.size()];
 
 	// Light
-	private JLabel LBL_LIGHT[] = new JLabel[l.size()],
-			LBL_DIMSETTINGS[] = new JLabel[l.size()],
-			LBL_LIGHTSTATUS[] = new JLabel[l.size()];
-	private JRadioButton RB_ON[] = new JRadioButton[l.size()],
-			RB_OFF[] = new JRadioButton[l.size()];
-	private JSlider S_DIM[] = new JSlider[l.size()];
-	private JButton BTN_TIMERON[] = new JButton[l.size()],
-			BTN_TIMEROFF[] = new JButton[l.size()];
+	private JLabel LBL_LIGHT[] = new JLabel[lights.size()],
+			LBL_DIMSETTINGS[] = new JLabel[lights.size()],
+			LBL_LIGHTSTATUS[] = new JLabel[lights.size()];
+	private JRadioButton RB_ON[] = new JRadioButton[lights.size()],
+			RB_OFF[] = new JRadioButton[lights.size()];
+	private JSlider S_DIM[] = new JSlider[lights.size()];
+	private JButton BTN_TIMERON[] = new JButton[lights.size()],
+			BTN_TIMEROFF[] = new JButton[lights.size()];
 
 	// Shopping
 	private JButton BTN_ADD, BTN_VIEWLIST, BTN_DELETE, BTN_ORDER;
@@ -89,9 +89,9 @@ public class Gui extends JFrame implements ActionListener, ChangeListener {
 	private JList<Item> itemList = new JList<Item>(items);
 
 	// Master
-	private JLabel M_LBL_DOOR[] = new JLabel[d.size()],
-			M_LBL_GARAGE_DOOR[] = new JLabel[g.size()],
-			M_LBL_LIGHT[] = new JLabel[l.size()];
+	private JLabel M_LBL_DOOR[] = new JLabel[doors.size()],
+			M_LBL_GARAGE_DOOR[] = new JLabel[garages.size()],
+			M_LBL_LIGHT[] = new JLabel[lights.size()];
 	private JButton M_BTN_OPEN, M_BTN_CLOSE, M_BTN_LOCK, M_BTN_UNLOCK,
 			M_BTN_ON, M_BTN_OFF, M_BTN_TIMERON, M_BTN_TIMEROFF;
 	private JSlider M_DIMSLIDER;
@@ -103,13 +103,6 @@ public class Gui extends JFrame implements ActionListener, ChangeListener {
 		setVisible(true);
 		setResizable(false);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-
-		// Instantiate Components
-		TABPANE = new JTabbedPane();
-		MASTERPANEL = new JPanel(null);
-		DOORPANEL = new JPanel(null);
-		LIGHTPANEL = new JPanel(null);
-		SHOPPINGPANEL = new JPanel(null);
 
 		// Create Tab Panel
 		add(TABPANE);
@@ -134,37 +127,37 @@ public class Gui extends JFrame implements ActionListener, ChangeListener {
 		 * DOOR UI
 		 */
 
-		for (int i = 0; i < d.size(); i++) {
-			Door door = d.get(i);
+		for (int i = 0; i < doors.size(); i++) {
+			Door door = doors.get(i);
 
 			LBL_DOOR_NAME[i] = new JLabel(door.toString());
 			LBL_DOOR_NAME[i].setBounds(25, currentHeight, 90, 15);
-			LBL_DOOR_NAME[i].setFont(f);
+			LBL_DOOR_NAME[i].setFont(F);
 
 			BTN_OPEN[i] = new JButton("Open");
 			BTN_OPEN[i].setBounds(100, currentHeight, 75, 20);
-			BTN_OPEN[i].setFont(f);
+			BTN_OPEN[i].setFont(F);
 			BTN_OPEN[i].addActionListener(this);
 
 			BTN_CLOSE[i] = new JButton("Close");
 			BTN_CLOSE[i].setBounds(180, currentHeight, 75, 20);
-			BTN_CLOSE[i].setFont(f);
+			BTN_CLOSE[i].setFont(F);
 			BTN_CLOSE[i].addActionListener(this);
 
 			RB_LOCK[i] = new JRadioButton("Locked");
 			RB_LOCK[i].setBounds(260, currentHeight, 70, 20);
 			RB_LOCK[i].setSelected(true);
-			RB_LOCK[i].setFont(f);
+			RB_LOCK[i].setFont(F);
 			RB_LOCK[i].addActionListener(this);
 
 			RB_UNLOCK[i] = new JRadioButton("Unlocked");
 			RB_UNLOCK[i].setBounds(330, currentHeight, 80, 20);
-			RB_UNLOCK[i].setFont(f);
+			RB_UNLOCK[i].setFont(F);
 			RB_UNLOCK[i].addActionListener(this);
 
 			LBL_DOORSTATUS[i] = new JLabel("Status: " + door.status());
 			LBL_DOORSTATUS[i].setBounds(430, currentHeight, 150, 15);
-			LBL_DOORSTATUS[i].setFont(f);
+			LBL_DOORSTATUS[i].setFont(F);
 
 			currentHeight += 30;
 
@@ -180,26 +173,26 @@ public class Gui extends JFrame implements ActionListener, ChangeListener {
 		 * GARAGE UI
 		 */
 
-		for (int i = 0; i < g.size(); i++) {
-			Garage garage = g.get(i);
+		for (int i = 0; i < garages.size(); i++) {
+			Garage garage = garages.get(i);
 
 			LBL_GARAGE_NAME[i] = new JLabel(garage.toString());
 			LBL_GARAGE_NAME[i].setBounds(25, currentHeight, 90, 15);
-			LBL_GARAGE_NAME[i].setFont(f);
+			LBL_GARAGE_NAME[i].setFont(F);
 
 			BTN_GARAGE_UNLOCK[i] = new JButton("Open");
 			BTN_GARAGE_UNLOCK[i].setBounds(100, currentHeight, 75, 20);
-			BTN_GARAGE_UNLOCK[i].setFont(f);
+			BTN_GARAGE_UNLOCK[i].setFont(F);
 			BTN_GARAGE_UNLOCK[i].addActionListener(this);
 
 			BTN_GARAGE_LOCK[i] = new JButton("Close");
 			BTN_GARAGE_LOCK[i].setBounds(180, currentHeight, 75, 20);
-			BTN_GARAGE_LOCK[i].setFont(f);
+			BTN_GARAGE_LOCK[i].setFont(F);
 			BTN_GARAGE_LOCK[i].addActionListener(this);
 
 			LBL_GARAGESTATUS[i] = new JLabel("Status: " + garage.status());
 			LBL_GARAGESTATUS[i].setBounds(430, currentHeight, 150, 15);
-			LBL_GARAGESTATUS[i].setFont(f);
+			LBL_GARAGESTATUS[i].setFont(F);
 
 			currentHeight += 30;
 
@@ -214,44 +207,44 @@ public class Gui extends JFrame implements ActionListener, ChangeListener {
 
 		int y = 25;
 
-		for (int i = 0; i < l.size(); i++) {
-			Light light = l.get(i);
+		for (int i = 0; i < lights.size(); i++) {
+			Light light = lights.get(i);
 
 			LBL_LIGHT[i] = new JLabel(light.toString());
 			LBL_LIGHT[i].setBounds(25, y, 90, 15);
-			LBL_LIGHT[i].setFont(f);
+			LBL_LIGHT[i].setFont(F);
 
 			RB_ON[i] = new JRadioButton("On");
 			RB_ON[i].setBounds(100, y, 50, 20);
 			RB_ON[i].setSelected(false);
-			RB_ON[i].setFont(f);
+			RB_ON[i].setFont(F);
 			RB_ON[i].addActionListener(this);
 
 			RB_OFF[i] = new JRadioButton("Off");
 			RB_OFF[i].setBounds(150, y, 50, 20);
 			RB_OFF[i].setSelected(true);
-			RB_OFF[i].setFont(f);
+			RB_OFF[i].setFont(F);
 			RB_OFF[i].addActionListener(this);
 
 			LBL_LIGHTSTATUS[i] = new JLabel("Status: " + light.status());
 			LBL_LIGHTSTATUS[i].setBounds(225, y, 85, 20);
-			LBL_LIGHTSTATUS[i].setFont(f);
+			LBL_LIGHTSTATUS[i].setFont(F);
 
 			BTN_TIMERON[i] = new JButton("Timed On", ICON_TIMED);
 			BTN_TIMERON[i].setBounds(320, y, 120, 30);
-			BTN_TIMERON[i].setFont(f);
+			BTN_TIMERON[i].setFont(F);
 			BTN_TIMERON[i].addActionListener(this);
 
 			BTN_TIMEROFF[i] = new JButton("Timed Off", ICON_TIMED);
 			BTN_TIMEROFF[i].setBounds(450, y, 120, 30);
-			BTN_TIMEROFF[i].setFont(f);
+			BTN_TIMEROFF[i].setFont(F);
 			BTN_TIMEROFF[i].addActionListener(this);
 
 			y += 35;
 
 			LBL_DIMSETTINGS[i] = new JLabel("Dim Settings: ");
 			LBL_DIMSETTINGS[i].setBounds(25, y, 90, 15);
-			LBL_DIMSETTINGS[i].setFont(f);
+			LBL_DIMSETTINGS[i].setFont(F);
 
 			S_DIM[i] = new JSlider();
 			S_DIM[i].setBounds(150, y, 150, 40);
@@ -266,7 +259,7 @@ public class Gui extends JFrame implements ActionListener, ChangeListener {
 			// Make Paint Visible
 			S_DIM[i].setPaintTicks(true);
 			S_DIM[i].setPaintLabels(true);
-			S_DIM[i].setFont(f);
+			S_DIM[i].setFont(F);
 			S_DIM[i].addChangeListener(this);
 
 			y += 50;
@@ -291,11 +284,11 @@ public class Gui extends JFrame implements ActionListener, ChangeListener {
 		int x = 75;
 		int y = 75;
 
-		for (int i = 0; i < d.size(); i++) {
-			Door door = d.get(i);
+		for (int i = 0; i < doors.size(); i++) {
+			Door door = doors.get(i);
 			M_LBL_DOOR[i] = new JLabel(door.toString() + " " + door.status());
 			M_LBL_DOOR[i].setBounds(x, y, 110, 15);
-			M_LBL_DOOR[i].setFont(f);
+			M_LBL_DOOR[i].setFont(F);
 			x += 160;
 
 			// 2 Column Layout
@@ -307,12 +300,12 @@ public class Gui extends JFrame implements ActionListener, ChangeListener {
 			MASTERPANEL.add(M_LBL_DOOR[i]);
 		}
 
-		for (int i = 0; i < g.size(); i++) {
-			Garage garage = g.get(i);
+		for (int i = 0; i < garages.size(); i++) {
+			Garage garage = garages.get(i);
 			M_LBL_GARAGE_DOOR[i] = new JLabel(garage.toString() + " "
 					+ garage.status());
 			M_LBL_GARAGE_DOOR[i].setBounds(75, y, 110, 15);
-			M_LBL_GARAGE_DOOR[i].setFont(f);
+			M_LBL_GARAGE_DOOR[i].setFont(F);
 			x += 160;
 
 			// 2 Column Layout
@@ -327,25 +320,25 @@ public class Gui extends JFrame implements ActionListener, ChangeListener {
 		ImageIcon ICON_OPEN = createImageIcon("images/Icon_Open.png");
 		M_BTN_OPEN = new JButton("Open", ICON_OPEN);
 		M_BTN_OPEN.setBounds(75, 25, 100, 30);
-		M_BTN_OPEN.setFont(f);
+		M_BTN_OPEN.setFont(F);
 		M_BTN_OPEN.addActionListener(this);
 
 		ImageIcon ICON_CLOSE = createImageIcon("images/Icon_Closed.png");
 		M_BTN_CLOSE = new JButton("Close", ICON_CLOSE);
 		M_BTN_CLOSE.setBounds(185, 25, 100, 30);
-		M_BTN_CLOSE.setFont(f);
+		M_BTN_CLOSE.setFont(F);
 		M_BTN_CLOSE.addActionListener(this);
 
 		ImageIcon ICON_LOCKED = createImageIcon("images/Icon_Locked.png");
 		M_BTN_LOCK = new JButton("Lock", ICON_LOCKED);
 		M_BTN_LOCK.setBounds(295, 25, 100, 30);
-		M_BTN_LOCK.setFont(f);
+		M_BTN_LOCK.setFont(F);
 		M_BTN_LOCK.addActionListener(this);
 
 		ImageIcon ICON_UNLOCKED = createImageIcon("images/Icon_Unlocked.png");
 		M_BTN_UNLOCK = new JButton("Unlock", ICON_UNLOCKED);
 		M_BTN_UNLOCK.setBounds(405, 25, 100, 30);
-		M_BTN_UNLOCK.setFont(f);
+		M_BTN_UNLOCK.setFont(F);
 		M_BTN_UNLOCK.addActionListener(this);
 
 		/*
@@ -355,13 +348,13 @@ public class Gui extends JFrame implements ActionListener, ChangeListener {
 		ImageIcon ICON_ON = createImageIcon("images/Icon_On.png");
 		M_BTN_ON = new JButton("On", ICON_ON);
 		M_BTN_ON.setBounds(75, 150, 100, 30);
-		M_BTN_ON.setFont(f);
+		M_BTN_ON.setFont(F);
 		M_BTN_ON.addActionListener(this);
 
 		ImageIcon ICON_OFF = createImageIcon("images/Icon_Off.png");
 		M_BTN_OFF = new JButton("Off", ICON_OFF);
 		M_BTN_OFF.setBounds(185, 150, 100, 30);
-		M_BTN_OFF.setFont(f);
+		M_BTN_OFF.setFont(F);
 		M_BTN_OFF.addActionListener(this);
 
 		M_DIMSLIDER = new JSlider();
@@ -382,11 +375,11 @@ public class Gui extends JFrame implements ActionListener, ChangeListener {
 		x = 75;
 		y = 200;
 
-		for (int i = 0; i < l.size(); i++) {
-			Light light = l.get(i);
+		for (int i = 0; i < lights.size(); i++) {
+			Light light = lights.get(i);
 			M_LBL_LIGHT[i] = new JLabel(light.toString() + " " + light.status());
 			M_LBL_LIGHT[i].setBounds(x, y, 110, 15);
-			M_LBL_LIGHT[i].setFont(f);
+			M_LBL_LIGHT[i].setFont(F);
 			x += 110;
 
 			// 2 Column Layout
@@ -400,12 +393,12 @@ public class Gui extends JFrame implements ActionListener, ChangeListener {
 
 		M_BTN_TIMERON = new JButton("Timer On", ICON_TIMED);
 		M_BTN_TIMERON.setBounds(75, y + 20, 110, 30);
-		M_BTN_TIMERON.setFont(f);
+		M_BTN_TIMERON.setFont(F);
 		M_BTN_TIMERON.addActionListener(this);
 
 		M_BTN_TIMEROFF = new JButton("Timer Off", ICON_TIMED);
 		M_BTN_TIMEROFF.setBounds(195, y + 20, 110, 30);
-		M_BTN_TIMEROFF.setFont(f);
+		M_BTN_TIMEROFF.setFont(F);
 		M_BTN_TIMEROFF.addActionListener(this);
 
 		MASTERPANEL.add(M_BTN_OPEN);
@@ -428,7 +421,7 @@ public class Gui extends JFrame implements ActionListener, ChangeListener {
 
 		ImageIcon ICON_BARCODE = createImageIcon("images/Icon_Barcode.png");
 		JLabel LBL_PRODUCT = new JLabel("Product:", ICON_BARCODE, 0);
-		LBL_PRODUCT.setFont(f);
+		LBL_PRODUCT.setFont(F);
 		LBL_PRODUCT.setBounds(5, 15, 100, 40);
 
 		/*
@@ -440,7 +433,7 @@ public class Gui extends JFrame implements ActionListener, ChangeListener {
 
 		ImageIcon ICON_TAG = createImageIcon("images/Icon_Tag.png");
 		JLabel LBL_PRICE = new JLabel("Price:", ICON_TAG, 0);
-		LBL_PRICE.setFont(f);
+		LBL_PRICE.setFont(F);
 		LBL_PRICE.setBounds(5, 70, 80, 40);
 
 		JTF_PRICE = new JTextField();
@@ -449,32 +442,32 @@ public class Gui extends JFrame implements ActionListener, ChangeListener {
 
 		ImageIcon ICON_ADD = createImageIcon("images/Icon_Add.png");
 		BTN_ADD = new JButton("Add item", ICON_ADD);
-		BTN_ADD.setFont(f);
+		BTN_ADD.setFont(F);
 		BTN_ADD.setBounds(5, 130, 120, 40);
 		BTN_ADD.addActionListener(this);
 
 		ImageIcon ICON_VIEWLIST = createImageIcon("images/Icon_List.png");
 		BTN_VIEWLIST = new JButton("View List", ICON_VIEWLIST);
-		BTN_VIEWLIST.setFont(f);
+		BTN_VIEWLIST.setFont(F);
 		BTN_VIEWLIST.setBounds(140, 130, 120, 40);
 		BTN_VIEWLIST.addActionListener(this);
 
 		ImageIcon ICON_DELETE = createImageIcon("images/Icon_Delete.png");
 		BTN_DELETE = new JButton("Delete Item", ICON_DELETE);
-		BTN_DELETE.setFont(f);
+		BTN_DELETE.setFont(F);
 		BTN_DELETE.setBounds(5, 180, 120, 40);
 		BTN_DELETE.addActionListener(this);
 
 		ImageIcon ICON_ORDER = createImageIcon("images/Icon_Order.png");
 		BTN_ORDER = new JButton("Order", ICON_ORDER);
-		BTN_ORDER.setFont(f);
+		BTN_ORDER.setFont(F);
 		BTN_ORDER.setBounds(140, 180, 120, 40);
 		BTN_ORDER.addActionListener(this);
 
 		ICON_PRICE = createImageIcon("images/Icon_Price.png");
 		LBL_COST = new JLabel("Total Cost: £" + DF.format(shopping.total()),
 				ICON_PRICE, 0);
-		LBL_COST.setFont(f);
+		LBL_COST.setFont(F);
 		LBL_COST.setBounds(5, 230, 150, 40);
 
 		itemList.setBounds(300, 15, 275, 400);
@@ -496,8 +489,8 @@ public class Gui extends JFrame implements ActionListener, ChangeListener {
 	public void actionPerformed(ActionEvent e) {
 
 		// DOOR LOOP
-		for (int i = 0; i < d.size(); i++) {
-			Door door = d.get(i);
+		for (int i = 0; i < doors.size(); i++) {
+			Door door = doors.get(i);
 
 			// OPEN BUTTON
 			if (e.getSource() == BTN_OPEN[i]) {
@@ -639,8 +632,8 @@ public class Gui extends JFrame implements ActionListener, ChangeListener {
 		}
 
 		// Garage Loop
-		for (int i = 0; i < g.size(); i++) {
-			Garage garage = g.get(i);
+		for (int i = 0; i < garages.size(); i++) {
+			Garage garage = garages.get(i);
 
 			// GARAGE UNLOCK BUTTON
 			if (e.getSource() == BTN_GARAGE_UNLOCK[i]) {
@@ -688,8 +681,8 @@ public class Gui extends JFrame implements ActionListener, ChangeListener {
 		}
 
 		// Light Loop
-		for (int i = 0; i < l.size(); i++) {
-			final Light light = l.get(i);
+		for (int i = 0; i < lights.size(); i++) {
+			final Light light = lights.get(i);
 
 			if (e.getSource() == RB_ON[i]) {
 				if (!light.isOn()) {
@@ -832,8 +825,8 @@ public class Gui extends JFrame implements ActionListener, ChangeListener {
 
 	@Override
 	public void stateChanged(ChangeEvent c) {
-		for (int i = 0; i < l.size(); i++) {
-			Light light = l.get(i);
+		for (int i = 0; i < lights.size(); i++) {
+			Light light = lights.get(i);
 
 			if (S_DIM[i].getValueIsAdjusting()) {
 				light.setDimValue((int) S_DIM[i].getValue());
