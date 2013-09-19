@@ -1,4 +1,5 @@
 package gui;
+
 import home.Door;
 import home.Garage;
 import home.House;
