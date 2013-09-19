@@ -1,3 +1,4 @@
+package home;
 public class Light {
 
 	private boolean lightOn = false;

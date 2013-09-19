@@ -1,3 +1,4 @@
+package home;
 public class Door {
 
 	protected boolean locked = true;

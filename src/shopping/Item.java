@@ -1,10 +1,11 @@
+package shopping;
 import java.text.DecimalFormat;
 
 public class Item {
 
 	private String name;
 	private double price = 0.00;
-	private DecimalFormat DF = new DecimalFormat("0.00");
+	private static final DecimalFormat df = new DecimalFormat("0.00");
 
 	public Item(String n, double p) {
 		setName(n);
@@ -28,6 +29,6 @@ public class Item {
 	}
 
 	public String toString() {
-		return name + "   £" + DF.format(price);
+		return name + "   £" + df.format(price);
 	}
 }

@@ -1,3 +1,5 @@
+package home;
+
 public class Garage extends Door {
 
 	public Garage() {

@@ -1,3 +1,6 @@
+package home;
+import gui.Gui;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +26,7 @@ public class House {
 
 	public static void main(String[] args) {
 		@SuppressWarnings("unused")
-		Interface GUI = new Interface();
+		Gui GUI = new Gui();
 	}
 
 	public House() {

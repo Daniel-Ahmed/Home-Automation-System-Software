@@ -1,3 +1,9 @@
+package gui;
+import home.Door;
+import home.Garage;
+import home.House;
+import home.Light;
+
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,10 +26,13 @@ import javax.swing.Timer;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import shopping.Item;
+import shopping.Shopping;
+
 /**
  * TODO Alarm System
  */
-public class Interface extends JFrame implements ActionListener, ChangeListener {
+public class Gui extends JFrame implements ActionListener, ChangeListener {
 
 	private static final long serialVersionUID = 1L;
 
@@ -86,7 +95,7 @@ public class Interface extends JFrame implements ActionListener, ChangeListener 
 			M_BTN_ON, M_BTN_OFF, M_BTN_TIMERON, M_BTN_TIMEROFF;
 	private JSlider M_DIMSLIDER;
 
-	public Interface() {
+	public Gui() {
 		setTitle("Daniel Ahmed - Home Automation System");
 		setSize(600, 500);
 		setLocation(100, 100);
