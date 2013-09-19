@@ -1,8 +1,8 @@
 package home;
 public class Door {
 
-	protected boolean locked = true;
-	protected boolean open = false;
+	private boolean locked = true;
+	private boolean open = false;
 	private String name;
 
 	public Door(String name) {
@@ -31,6 +31,14 @@ public class Door {
 
 	public boolean isLocked() {
 		return locked;
+	}
+	
+	public void setLocked(boolean locked) {
+		this.locked = locked;
+	}
+
+	public void setOpen(boolean open) {
+		this.open = open;
 	}
 
 	public String toString() {

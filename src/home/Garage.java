@@ -8,13 +8,13 @@ public class Garage extends Door {
 
 	@Override
 	public void lock() {
-		open = false;
-		locked = true;
+		super.setOpen(false);
+		super.setLocked(true);
 	}
 
 	@Override
 	public void unlock() {
-		locked = false;
-		open = true;
+		super.setLocked(false);
+		super.setOpen(true);
 	}
 }
