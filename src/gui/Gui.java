@@ -37,9 +37,9 @@ public class Gui extends JFrame implements ActionListener, ChangeListener {
 	// Objects
 	private House house = new House();
 	private Shopping shopping = new Shopping();
-	private List<Door> doors = house.getDoor();
-	private List<Garage> garages = house.getGarage();
-	private List<Light> lights = house.getLight();
+	private List<Door> doors = house.getDoors();
+	private List<Garage> garages = house.getGarages();
+	private List<Light> lights = house.getLights();
 
 	// Timer
 	private Timer timerOn[] = new Timer[lights.size()];
@@ -48,6 +48,7 @@ public class Gui extends JFrame implements ActionListener, ChangeListener {
 	// Icons, fonts and number format.
 	private final DecimalFormat DF = new DecimalFormat("0.00");
 	private final Font F = new Font("Arial", Font.PLAIN, 12);
+	private ImageIcon ICON_PRICE;
 	private final ImageIcon ICON_TIMED = createImageIcon("images/Icon_Timed.png");
 
 	// Panels and Tabbed Pane
@@ -60,64 +61,53 @@ public class Gui extends JFrame implements ActionListener, ChangeListener {
 	// Labels
 	private JLabel LBL_DOOR_NAME[] = new JLabel[doors.size()];
 	private JLabel LBL_DOORSTATUS[] = new JLabel[doors.size()];
-	
 	private JLabel LBL_GARAGE_NAME[] = new JLabel[garages.size()];
 	private JLabel LBL_GARAGESTATUS[] = new JLabel[garages.size()];
-	
 	private JLabel LBL_LIGHT[] = new JLabel[lights.size()];
 	private JLabel LBL_DIMSETTINGS[] = new JLabel[lights.size()];
 	private JLabel LBL_LIGHTSTATUS[] = new JLabel[lights.size()];
-	
 	private JLabel MASTER_LBL_DOOR[] = new JLabel[doors.size()];
 	private JLabel MASTER_LBL_GARAGE_DOOR[] = new JLabel[garages.size()];
 	private JLabel MASTER_LBL_LIGHT[] = new JLabel[lights.size()];
-	
 	private JLabel LBL_COST;
 
 	// JButtons
 	private JButton BTN_OPEN[] = new JButton[doors.size()];
 	private JButton BTN_CLOSE[] = new JButton[doors.size()];
-	
 	private JButton BTN_GARAGE_LOCK[] = new JButton[garages.size()];
 	private JButton BTN_GARAGE_UNLOCK[] = new JButton[garages.size()];
-	
 	private JButton BTN_TIMERON[] = new JButton[lights.size()];
 	private JButton BTN_TIMEROFF[] = new JButton[lights.size()];
-	
 	private JButton MASTER_BTN_OPEN;
 	private JButton MASTER_BTN_CLOSE;
 	private JButton MASTER_BTN_LOCK;
 	private JButton MASTER_BTN_UNLOCK;
-	private JButton MASTER_BTN_ON; 
-	private JButton MASTER_BTN_OFF; 
-	private JButton MASTER_BTN_TIMERON; 
+	private JButton MASTER_BTN_ON;
+	private JButton MASTER_BTN_OFF;
+	private JButton MASTER_BTN_TIMERON;
 	private JButton MASTER_BTN_TIMEROFF;
-	
 	private JButton BTN_ADD;
 	private JButton BTN_VIEWLIST;
 	private JButton BTN_DELETE;
 	private JButton BTN_ORDER;
-	
-	private JRadioButton RB_LOCK[] = new JRadioButton[doors.size()],
-			RB_UNLOCK[] = new JRadioButton[doors.size()];
 
-	private JRadioButton RB_ON[] = new JRadioButton[lights.size()],
-			RB_OFF[] = new JRadioButton[lights.size()];
+	// Radio Button
+	private JRadioButton RB_LOCK[] = new JRadioButton[doors.size()];
+	private JRadioButton RB_UNLOCK[] = new JRadioButton[doors.size()];
+	private JRadioButton RB_ON[] = new JRadioButton[lights.size()];
+	private JRadioButton RB_OFF[] = new JRadioButton[lights.size()];
+
+	// JSlider
 	private JSlider S_DIM[] = new JSlider[lights.size()];
-	
+	private JSlider M_DIMSLIDER;
 
-	// Shopping
-	
-	private JTextField JTF_PRODUCT, JTF_PRICE;
-	private ImageIcon ICON_PRICE;
-	
+	// JTextField
+	private JTextField JTF_PRODUCT;
+	private JTextField JTF_PRICE;
+
+	// List
 	private DefaultListModel<Item> items = new DefaultListModel<Item>();
 	private JList<Item> itemList = new JList<Item>(items);
-
-	// Master
-
-	
-	private JSlider M_DIMSLIDER;
 
 	public Gui() {
 		setTitle("Daniel Ahmed - Home Automation System");

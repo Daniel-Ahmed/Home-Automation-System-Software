@@ -12,7 +12,7 @@ public class House {
 	Door bedroom = new Door("Bedroom");
 	Door bathroom = new Door("Bathroom");
 
-	Garage garage = new Garage();
+	Garage garageDoor = new Garage();
 
 	Light lightFront = new Light("Front room");
 	Light lightBack = new Light("Back room");
@@ -21,7 +21,7 @@ public class House {
 
 	// Creating List to store created objects
 	private List<Door> door = new ArrayList<Door>();
-	private List<Garage> garageDoor = new ArrayList<Garage>();
+	private List<Garage> garage = new ArrayList<Garage>();
 	private List<Light> light = new ArrayList<Light>();
 
 	public static void main(String[] args) {
@@ -35,7 +35,7 @@ public class House {
 		door.add(bedroom);
 		door.add(bathroom);
 
-		garageDoor.add(garage);
+		garage.add(garageDoor);
 
 		light.add(lightFront);
 		light.add(lightBack);
@@ -43,15 +43,15 @@ public class House {
 		light.add(lightBathroom);
 	}
 
-	public List<Door> getDoor() {
+	public List<Door> getDoors() {
 		return door;
 	}
 
-	public List<Light> getLight() {
+	public List<Light> getLights() {
 		return light;
 	}
 
-	public List<Garage> getGarage() {
-		return garageDoor;
+	public List<Garage> getGarages() {
+		return garage;
 	}
 }
